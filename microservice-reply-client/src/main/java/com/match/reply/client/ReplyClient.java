@@ -6,6 +6,7 @@ import com.match.reply.client.bean.ReplyPublishDto;
 import com.match.reply.client.bean.ReplySimpleDto;
 import com.match.reply.client.bean.ReplyType;
 import com.match.reply.client.configuration.FeignSupportConfig;
+import com.match.reply.client.fallback.FallbackReplyClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
  * @Date 2019/8/2 10:09
  * @Version v1.0
  */
-@FeignClient(name = "microservice-reply",configuration = FeignSupportConfig.class, fallbackFactory = HystrixClientFallbackFactory.class)
+@FeignClient(name = "microservice-reply",configuration = FeignSupportConfig.class, fallback = FallbackReplyClient.class)
 public interface ReplyClient {
 
     @PostMapping("/reply/publish")
@@ -32,4 +33,7 @@ public interface ReplyClient {
                                            @RequestParam(name = "replyType") ReplyType replyType,
                                            @RequestParam(name = "resourceId") String resourceId
     );
+
+    @GetMapping("/reply/countByResourceIdAndCommentsType")
+    Integer countByResourceIdAndCommentsType(@RequestParam(name = "resourceId")String resourceId, @RequestParam(name = "replyType")ReplyType replyType);
 }

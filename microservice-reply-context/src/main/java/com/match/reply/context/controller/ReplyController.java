@@ -44,4 +44,8 @@ public class ReplyController implements ReplyClient {
         return replyService.list(page, size, replyType,resourceId);
     }
 
+    @Override
+    public Integer countByResourceIdAndCommentsType(@RequestParam(name = "resourceId" ) String resourceId,@RequestParam(name = "replyType" )  ReplyType replyType) {
+        return replyService.countByResourceIdAndCommentsType(resourceId,replyType);
+    }
 }

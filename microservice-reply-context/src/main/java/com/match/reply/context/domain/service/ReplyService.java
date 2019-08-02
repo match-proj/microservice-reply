@@ -14,4 +14,6 @@ public interface ReplyService {
     void publish(String userId, ReplyPublishDto publishDto);
 
     PageResult<ReplySimpleDto> list(Integer page, Integer size, ReplyType replyType, String resourceId);
+
+    Integer countByResourceIdAndCommentsType(String resourceId, ReplyType replyType);
 }

@@ -106,4 +106,9 @@ public class ReplyServiceImpl implements ReplyService {
 
         return new PageResult<ReplySimpleDto>(totalElements, collect);
     }
+
+    @Override
+    public Integer countByResourceIdAndCommentsType(String resourceId, ReplyType replyType) {
+        return commentsRepository.countByResourceIdAndReplyType(resourceId,replyType);
+    }
 }
